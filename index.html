@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biodiversity</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .biodiversity-info {
+            max-width: 600px;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Biodiversity and Conservation</h1>
+    </header>
+
+    <div class="content">
+        <img src="panda.jpg" alt="Panda" width="640" height="480">
+        
+        <div class="biodiversity-info">
+            <h2>What is Biodiversity?</h2>
+            <p>Biodiversity refers to the variety of life on Earth, from genes and species to ecosystems. It plays a crucial role in maintaining the balance of the natural world and supporting ecosystem services that humans rely on, such as clean air, water, and fertile soil.</p>
+            
+            <h2>Conservation Efforts</h2>
+            <p>Conservation of biodiversity is essential to protect endangered species and preserve ecosystems. Conservation efforts include habitat protection, reforestation, and fighting climate change, all of which help maintain biodiversity and ensure the survival of many species, including pandas.</p>
+        </div>
+
+        <button onclick="compareBiodiversity()">Compare Biodiversity: Now vs. 2050</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Biodiversity Awareness</p>
+    </footer>
+
+    <script>
+        function compareBiodiversity() {
+            let message = "In 2050, if conservation efforts are not successful, we could face a world with significantly reduced biodiversity. Species like pandas may become even more endangered, and ecosystems could collapse due to loss of key species.";
+            alert(message);
+        }
+    </script>
+    
+</body>
+</html>
