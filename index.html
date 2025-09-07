@@ -3,101 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biodiversity</title>
+    <title>Fat Fact Kitchen</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f8ff; /* AliceBlue */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 20px 0;
+            text-align: center;
         }
 
-        header {
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            padding: 20px;
+        #game-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
         }
 
         h1 {
-            margin: 0;
+            color: #ff6347; /* Tomato */
+            margin-top: 0;
+        }
+        
+        h2 {
+            color: #333;
         }
 
-        .content {
+        #score-board {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin: 15px 0;
+            color: #4682b4; /* SteelBlue */
+        }
+
+        #ingredient-display {
+            background-color: #fffacd; /* LemonChiffon */
+            border: 2px dashed #ffd700; /* Gold */
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #333;
+            min-height: 60px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 20px;
+            justify-content: center;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
+        #button-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
         }
 
-        .biodiversity-info {
-            max-width: 600px;
+        .choice-btn {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            flex-grow: 1;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .choice-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        #saturated-btn {
+            background-color: #d9534f; /* Reddish */
+        }
+
+        #unsaturated-btn {
+            background-color: #5cb85c; /* Greenish */
+        }
+        
+        #feedback {
             margin-top: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 1.1em;
+            font-weight: 600;
+            min-height: 25px;
         }
 
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
+        .correct {
+            color: #5cb85c;
+        }
+
+        .incorrect {
+            color: #d9534f;
+        }
+        
+        #final-message button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            background-color: #4682b4;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-size: 1em;
             cursor: pointer;
-            margin-top: 20px;
+            transition: background-color 0.2s;
         }
 
-        button:hover {
-            background-color: #45a049;
+        #final-message button:hover {
+            background-color: #5a9bd8;
+        }
+        
+        #final-message .percentage {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #ff6347;
+            margin-top: 10px;
         }
 
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-        }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Biodiversity and Conservation</h1>
-    </header>
-
-    <div class="content">
-        <img src="panda.jpg" alt="Panda" width="640" height="480">
+    <div id="game-container">
+        <h1>Fat Fact Kitchen 🍳</h1>
+        <p>Sort the ingredient into the correct dietary fat category!</p>
         
-        <div class="biodiversity-info">
-            <h2>What is Biodiversity?</h2>
-            <p>Biodiversity refers to the variety of life on Earth, from genes and species to ecosystems. It plays a crucial role in maintaining the balance of the natural world and supporting ecosystem services that humans rely on, such as clean air, water, and fertile soil.</p>
-            
-            <h2>Conservation Efforts</h2>
-            <p>Conservation of biodiversity is essential to protect endangered species and preserve ecosystems. Conservation efforts include habitat protection, reforestation, and fighting climate change, all of which help maintain biodiversity and ensure the survival of many species, including pandas.</p>
-        </div>
+        <div id="score-board">Score: 0 / 20</div>
+        
+        <div id="ingredient-display">
+            </div>
 
-        <button onclick="compareBiodiversity()">Compare Biodiversity: Now vs. 2050</button>
+        <div id="button-container">
+            <button id="saturated-btn" class="choice-btn" onclick="checkAnswer('saturated')">Saturated Fat</button>
+            <button id="unsaturated-btn" class="choice-btn" onclick="checkAnswer('unsaturated')">Unsaturated Fat</button>
+        </div>
+        
+        <div id="feedback">
+            </div>
+        
+        <div id="final-message" style="display: none;">
+            </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Biodiversity Awareness</p>
-    </footer>
-
     <script>
-        function compareBiodiversity() {
-            let message = "In 2050, if conservation efforts are not successful, we could face a world with significantly reduced biodiversity. Species like pandas may become even more endangered, and ecosystems could collapse due to loss of key species.";
-            alert(message);
+        const masterIngredients = [
+            // 40 Unsaturated Fats
+            { name: 'Avocado', type: 'unsaturated' },
+            { name: 'Olive Oil', type: 'unsaturated' },
+            { name: 'Canola Oil', type: 'unsaturated' },
+            { name: 'Peanut Oil', type: 'unsaturated' },
+            { name: 'Sunflower Oil', type: 'unsaturated' },
+            { name: 'Sesame Oil', type: 'unsaturated' },
+            { name: 'Soybean Oil', type: 'unsaturated' },
+            { name: 'Flaxseed Oil', type: 'unsaturated' },
+            { name: 'Walnut Oil', type: 'unsaturated' },
+            { name: 'Grapeseed Oil', type: 'unsaturated' },
+            { name: 'Almonds', type: 'unsaturated' },
+            { name: 'Walnuts', type: 'unsaturated' },
+            { name: 'Peanuts', type: 'unsaturated' },
+            { name: 'Pecans', type: 'unsaturated' },
+            { name: 'Hazelnuts', type: 'unsaturated' },
+            { name: 'Cashews', type: 'unsaturated' },
+            { name: 'Pistachios', type: 'unsaturated' },
+            { name: 'Macadamia Nuts', type: 'unsaturated' },
+            { name: 'Brazil Nuts', type: 'unsaturated' },
+            { name: 'Pine Nuts', type: 'unsaturated' },
+            { name: 'Sunflower Seeds', type: 'unsaturated' },
+            { name: 'Sesame Seeds', type: 'unsaturated' },
+            { name: 'Pumpkin Seeds', type: 'unsaturated' },
+            { name: 'Chia Seeds', type: 'unsaturated' },
+            { name: 'Flaxseeds', type: 'unsaturated' },
+            { name: 'Hemp Seeds', type: 'unsaturated' },
+            { name: 'Natural Peanut Butter', type: 'unsaturated' },
+            { name: 'Almond Butter', type: 'unsaturated' },
+            { name: 'Tahini (Sesame Paste)', type: 'unsaturated' },
+            { name: 'Olives', type: 'unsaturated' },
+            { name: 'Salmon', type: 'unsaturated' },
+            { name: 'Mackerel', type: 'unsaturated' },
+            { name: 'Herring', type: 'unsaturated' },
+            { name: 'Sardines', type: 'unsaturated' },
+            { name: 'Tuna', type: 'unsaturated' },
+            { name: 'Trout', type: 'unsaturated' },
+            { name: 'Edamame', type: 'unsaturated' },
+            { name: 'Tofu', type: 'unsaturated' },
+            { name: 'Soybeans', type: 'unsaturated' },
+            { name: 'Avocado Oil', type: 'unsaturated' },
+            // 40 Saturated Fats
+            { name: 'Beef (fatty cuts)', type: 'saturated' },
+            { name: 'Lamb', type: 'saturated' },
+            { name: 'Pork', type: 'saturated' },
+            { name: 'Bacon', type: 'saturated' },
+            { name: 'Sausages', type: 'saturated' },
+            { name: 'Salami', type: 'saturated' },
+            { name: 'Pepperoni', type: 'saturated' },
+            { name: 'Beef Tallow', type: 'saturated' },
+            { name: 'Lard', type: 'saturated' },
+            { name: 'Butter', type: 'saturated' },
+            { name: 'Ghee (Clarified Butter)', type: 'saturated' },
+            { name: 'Whole Milk', type: 'saturated' },
+            { name: 'Heavy Cream', type: 'saturated' },
+            { name: 'Sour Cream', type: 'saturated' },
+            { name: 'Crème Fraîche', type: 'saturated' },
+            { name: 'Cheese', type: 'saturated' },
+            { name: 'Cream Cheese', type: 'saturated' },
+            { name: 'Ice Cream', type: 'saturated' },
+            { name: 'Yogurt (full-fat)', type: 'saturated' },
+            { name: 'Coconut Oil', type: 'saturated' },
+            { name: 'Palm Oil', type: 'saturated' },
+            { name: 'Palm Kernel Oil', type: 'saturated' },
+            { name: 'Cocoa Butter', type: 'saturated' },
+            { name: 'Chicken Skin', type: 'saturated' },
+            { name: 'Duck Fat', type: 'saturated' },
+            { name: 'Pork Rinds', type: 'saturated' },
+            { name: 'Mayonnaise', type: 'saturated' },
+            { name: 'Ranch Dressing', type: 'saturated' },
+            { name: 'Cream-Based Soups', type: 'saturated' },
+            { name: 'Pâté', type: 'saturated' },
+            { name: 'Quiche', type: 'saturated' },
+            { name: 'Croissants', type: 'saturated' },
+            { name: 'Pastries', type: 'saturated' },
+            { name: 'Biscuits', type: 'saturated' },
+            { name: 'Cakes', type: 'saturated' },
+            { name: 'Cookies', type: 'saturated' },
+            { name: 'Chocolate (milk/white)', type: 'saturated' },
+            { name: 'Shortening', type: 'saturated' },
+            { name: 'Margarine (stick)', type: 'saturated' },
+            { name: 'Processed Meats', type: 'saturated' }
+        ];
+
+        const ingredientsPerRound = 20;
+        let currentIngredientIndex = 0;
+        let score = 0;
+        let currentRoundIngredients = [];
+
+        const scoreBoard = document.getElementById('score-board');
+        const ingredientDisplay = document.getElementById('ingredient-display');
+        const feedbackDisplay = document.getElementById('feedback');
+        const finalMessageDisplay = document.getElementById('final-message');
+        const buttonContainer = document.getElementById('button-container');
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
         }
+
+        function startGame() {
+            score = 0;
+            currentIngredientIndex = 0;
+            
+            // Shuffle the master list and pick the first 20 for this round
+            shuffleArray(masterIngredients);
+            currentRoundIngredients = masterIngredients.slice(0, ingredientsPerRound);
+            
+            scoreBoard.innerText = `Score: ${score} / ${ingredientsPerRound}`;
+            finalMessageDisplay.style.display = 'none';
+            buttonContainer.style.display = 'flex';
+            feedbackDisplay.innerText = '';
+            
+            displayNextIngredient();
+        }
+
+        function displayNextIngredient() {
+            if (currentIngredientIndex < currentRoundIngredients.length) {
+                ingredientDisplay.innerText = currentRoundIngredients[currentIngredientIndex].name;
+            } else {
+                endGame();
+            }
+        }
+
+        function checkAnswer(playerChoice) {
+            const correctType = currentRoundIngredients[currentIngredientIndex].type;
+            
+            if (playerChoice === correctType) {
+                score++;
+                feedbackDisplay.innerText = "Correct!";
+                feedbackDisplay.className = "correct";
+            } else {
+                feedbackDisplay.innerText = `Wrong! ${currentRoundIngredients[currentIngredientIndex].name} is ${correctType} fat.`;
+                feedbackDisplay.className = "incorrect";
+            }
+
+            scoreBoard.innerText = `Score: ${score} / ${ingredientsPerRound}`;
+            currentIngredientIndex++;
+            
+            document.getElementById('saturated-btn').disabled = true;
+            document.getElementById('unsaturated-btn').disabled = true;
+
+            setTimeout(() => {
+                feedbackDisplay.innerText = '';
+                document.getElementById('saturated-btn').disabled = false;
+                document.getElementById('unsaturated-btn').disabled = false;
+                displayNextIngredient();
+            }, 1800);
+        }
+
+        function endGame() {
+            const percentage = Math.round((score / ingredientsPerRound) * 100);
+
+            ingredientDisplay.innerText = 'Round Over!';
+            buttonContainer.style.display = 'none';
+            finalMessageDisplay.innerHTML = `
+                <h2>You completed the round!</h2>
+                <p>Your final score is ${score} out of ${ingredientsPerRound}.</p>
+                <p class="percentage">${percentage}%</p>
+                <button onclick="startGame()">Play Again with New Foods</button>
+            `;
+            finalMessageDisplay.style.display = 'block';
+        }
+
+        // Start the game when the page loads
+        startGame();
     </script>
-    
+
 </body>
 </html>
